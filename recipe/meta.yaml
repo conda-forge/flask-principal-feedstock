@@ -1,16 +1,13 @@
 {% set name = "Flask-Principal" %}
 {% set version = "0.4.0" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_val = "f5d6134b5caebfdbb86f32d56d18ee44b080876a27269560a96ea35f75c99453" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  sha256: {{ hash_val }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f5d6134b5caebfdbb86f32d56d18ee44b080876a27269560a96ea35f75c99453
 
 build:
   noarch: python
@@ -21,8 +18,8 @@ build:
 requirements:
   host:
     - pip
+    - setuptools
     - python {{ python_min }}
-
   run:
     - python >={{ python_min }}
     - flask
@@ -31,8 +28,11 @@ requirements:
 test:
   requires:
     - python {{ python_min }}
+    - pip
   imports:
     - flask_principal
+  commands:
+    - pip check
 
 about:
   home: http://packages.python.org/Flask-Principal/
